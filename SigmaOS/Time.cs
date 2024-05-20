@@ -15,7 +15,7 @@ namespace CurrentTime
         }
         public string TimeString()
         {
-            return DateTime.Now.ToString();
+            return DateTime.Now.ToString("dddd, MMMM dd, yyyy h:mm:ss tt");
         }
     }
 }

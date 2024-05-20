@@ -20,6 +20,7 @@
         <DebugEnabled>False</DebugEnabled>
         <UseUEFI>True</UseUEFI>
         <CompileVBEMultiboot>True</CompileVBEMultiboot>
+        <VBEResolution>1024x768x32</VBEResolution>
     </PropertyGroup>
 
     <ItemGroup>
