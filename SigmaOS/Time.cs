@@ -4,7 +4,7 @@ namespace CurrentTime
 {
     public class Time
     {
-        public long UnixTime()
+        public long UnixTimeMilliseconds()
         {
             // Get current time in UTC
             DateTimeOffset nowUtc = DateTimeOffset.UtcNow;
@@ -12,6 +12,11 @@ namespace CurrentTime
             // Convert to Unix timestamp (milliseconds)
             long unixTimeInMilliseconds = nowUtc.ToUnixTimeMilliseconds();
             return unixTimeInMilliseconds;
+        }
+        public long UnixTimeSeconds()
+        {
+            DateTimeOffset nowUtc = DateTimeOffset.UtcNow;
+            return nowUtc.ToUnixTimeSeconds();
         }
         public string TimeString()
         {
