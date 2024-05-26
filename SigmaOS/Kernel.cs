@@ -57,25 +57,27 @@ namespace SigmaOS
 
             canvas.DrawString(text, PCScreenFont.Default, Color.White, textX1, textY1);
             canvas.DrawString(timeString, PCScreenFont.Default, Color.White, textX2, textY2);
-            canvas.DrawString("System Information (right click to toggle)", PCScreenFont.Default, Color.White, 20, 20);
+            canvas.DrawString("System Information (press i to toggle)", PCScreenFont.Default, Color.White, 20, 20);
             if (sysinfo == true)
             {
                 canvas.DrawString("FPS: " + FPS.ToString(), PCScreenFont.Default, Color.White, 20, 40);
                 canvas.DrawString("Used RAM / Available RAM: " + (GCImplementation.GetUsedRAM() / 1000000).ToString() + "/" + TRAM.ToString(), PCScreenFont.Default, Color.White, 20, 60);
                 canvas.DrawString("Mouse x: " + mx.ToString() + " y: " + my.ToString(), PCScreenFont.Default, Color.White, 20, 80);
             }
-            canvas.DrawString("Left click to restart, middle click to shutdown", PCScreenFont.Default, Color.White, 635, 750);
+            canvas.DrawString("Press r to restart, s to shutdown", PCScreenFont.Default, Color.White, 735, 750);
             Draw.DrawCursor(canvas, mx, my, swidth, sheight);
             canvas.Display();
-            if (MouseManager.MouseState == MouseState.Left)
+            KeyEvent keyevent;
+            KeyboardManager.TryReadKey(out keyevent);
+            if (keyevent.Key == ConsoleKeyEx.R)
             {
                 Power.Reboot();
             }
-            if (MouseManager.MouseState == MouseState.Middle)
+            if (keyevent.Key == ConsoleKeyEx.S)
             {
                 Power.Shutdown();
             }
-            if (MouseManager.MouseState == MouseState.Right)
+            if (keyevent.Key == ConsoleKeyEx.I)
             {
                 rbdown = true;
             } else
