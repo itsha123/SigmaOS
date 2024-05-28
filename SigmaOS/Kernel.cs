@@ -27,6 +27,7 @@ namespace SigmaOS
         Boolean sysinfo;
         Boolean rbdown;
         Boolean rbwdown;
+        int HColltimer;
         protected override void BeforeRun()
         {
             swidth = 1024;
@@ -101,7 +102,14 @@ namespace SigmaOS
             {
                 frames++;
             }
-            Heap.Collect();
+            if (HColltimer > 4)
+            {
+                HColltimer = 0;
+                Heap.Collect();
+            } else
+            {
+                HColltimer++;
+            }
         }
     }
 }
