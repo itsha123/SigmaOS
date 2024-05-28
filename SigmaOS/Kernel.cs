@@ -25,8 +25,6 @@ namespace SigmaOS
         int FPS;
         ulong TRAM;
         Boolean sysinfo;
-        Boolean rbdown;
-        Boolean rbwdown;
         int HColltimer;
         protected override void BeforeRun()
         {
@@ -74,24 +72,13 @@ namespace SigmaOS
             {
                 Power.Reboot();
             }
-            if (keyevent.Key == ConsoleKeyEx.S)
+            else if (keyevent.Key == ConsoleKeyEx.S)
             {
                 Power.Shutdown();
             }
-            if (keyevent.Key == ConsoleKeyEx.I)
-            {
-                rbdown = true;
-            } else
-            {
-                rbdown = false;
-            }
-            if (rbdown == true && rbwdown == false)
+            else if (keyevent.Key == ConsoleKeyEx.I)
             {
                 sysinfo = !sysinfo;
-                rbwdown = true;
-            } else if (rbdown == false)
-            {
-                rbwdown = false;
             }
             if (secondsFPS < time.UnixTimeSeconds())
             {
