@@ -4,21 +4,22 @@ namespace CurrentTime
 {
     public class Time
     {
-        public long UnixTimeMilliseconds()
+        public static long UnixTimeMilliseconds()
         {
             // Get current time in UTC
             DateTimeOffset nowUtc = DateTimeOffset.UtcNow;
-
-            // Convert to Unix timestamp (milliseconds)
-            long unixTimeInMilliseconds = nowUtc.ToUnixTimeMilliseconds();
-            return unixTimeInMilliseconds;
+            // Convert to Unix milliseconds
+            return nowUtc.ToUnixTimeMilliseconds();
         }
-        public long UnixTimeSeconds()
+        public static long UnixTimeSeconds()
         {
+            //Get current time in UTC
             DateTimeOffset nowUtc = DateTimeOffset.UtcNow;
+            //Convert to Unix seconds
             return nowUtc.ToUnixTimeSeconds();
         }
-        public string TimeString()
+        //Create a string including the full date and time manually
+        public static string TimeString()
         {
             DateTime now = DateTime.Now;
             int year = now.Year;

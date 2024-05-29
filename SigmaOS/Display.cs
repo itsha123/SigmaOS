@@ -8,6 +8,7 @@ namespace DisplayTools
     {
         public static void DrawCursor(VBECanvas canvas, uint mx, uint my, uint screenwidth, uint screenheight)
         {
+            //Cut off cursor if at edge of screen
             int closeness = (int)(screenheight - my);
             if (closeness < 6)
             {
