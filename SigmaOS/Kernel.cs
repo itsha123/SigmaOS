@@ -113,6 +113,7 @@ namespace SigmaOS
                 canvas.DrawString("FPS: " + FPS.ToString(), PCScreenFont.Default, Color.White, 20, 40);
                 canvas.DrawString("Used RAM / Available RAM: " + URAM + "/" + TRAM.ToString(), PCScreenFont.Default, Color.White, 20, 60);
                 canvas.DrawString("Mouse x: " + mx.ToString() + " y: " + my.ToString(), PCScreenFont.Default, Color.White, 20, 80);
+                canvas.DrawString("Version: 0.1.2", PCScreenFont.Default, Color.White, 20, 100);
             }
             //Draw bottom right text to frame buffer
             canvas.DrawString("Press r to restart, s to shutdown", PCScreenFont.Default, Color.White, 735, 750);
