@@ -24,6 +24,7 @@ namespace SigmaOS
         ulong TRAM;
         Boolean sysinfo;
         int HColltimer;
+        string URAM;
         protected override void BeforeRun()
         {
             //Define screen width and height
@@ -89,12 +90,13 @@ namespace SigmaOS
                 sysinfo = !sysinfo;
             }
 
-            //Reset FPS timer
+            //Reset FPS and used ram timer
             if (secondsFPS < Time.UnixTimeSeconds())
             {
                 secondsFPS = Time.UnixTimeSeconds();
                 FPS = frames;
                 frames = 0;
+                URAM = (GCImplementation.GetUsedRAM() / 1000000).ToString();
             }
             else
             {
@@ -109,7 +111,7 @@ namespace SigmaOS
             if (sysinfo == true)
             {
                 canvas.DrawString("FPS: " + FPS.ToString(), PCScreenFont.Default, Color.White, 20, 40);
-                canvas.DrawString("Used RAM / Available RAM: " + (GCImplementation.GetUsedRAM() / 1000000).ToString() + "/" + TRAM.ToString(), PCScreenFont.Default, Color.White, 20, 60);
+                canvas.DrawString("Used RAM / Available RAM: " + URAM + "/" + TRAM.ToString(), PCScreenFont.Default, Color.White, 20, 60);
                 canvas.DrawString("Mouse x: " + mx.ToString() + " y: " + my.ToString(), PCScreenFont.Default, Color.White, 20, 80);
             }
             //Draw bottom right text to frame buffer
