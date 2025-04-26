@@ -70,9 +70,6 @@ namespace SigmaOS
             //Get mouse position
             uint mx = MouseManager.X;
             uint my = MouseManager.Y;
-            //Draw mouse to frame buffer
-            Draw.DrawCursor(canvas, mx, my, swidth, sheight);
-
             //Read currently pressed key
             KeyEvent keyevent;
             KeyboardManager.TryReadKey(out keyevent);
@@ -117,6 +114,8 @@ namespace SigmaOS
             }
             //Draw bottom right text to frame buffer
             canvas.DrawString("Press r to restart, s to shutdown", PCScreenFont.Default, Color.White, 735, 750);
+            //Draw mouse to frame buffer
+            Draw.DrawCursor(canvas, mx, my, sheight);
             //Display buffered frame
             canvas.Display();
             //Call Heap.Collect() every four frames
