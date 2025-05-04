@@ -8,6 +8,7 @@ using Cosmos.Core;
 using Cosmos.Core.Memory;
 using DisplayTools;
 using System;
+using IL2CPU.API.Attribs;
 
 namespace SigmaOS
 {
@@ -25,11 +26,17 @@ namespace SigmaOS
         Boolean sysinfo;
         int HColltimer;
         string URAM;
+        [ManifestResourceStream(ResourceName = "SigmaOS.wallpaper.bmp")]
+        private static byte[] wallpaperData;
+        Bitmap bitmap;
         protected override void BeforeRun()
         {
             //Define screen width and height
             swidth = 1024;
             sheight = 768;
+
+            //Load wallpaper
+            bitmap = new Bitmap(wallpaperData);
 
             //Get available RAM
             TRAM = GCImplementation.GetAvailableRAM();
@@ -45,25 +52,26 @@ namespace SigmaOS
             mode = new Mode(swidth, sheight, ColorDepth.ColorDepth32);
             canvas = new VBECanvas(mode);
 
-            //Clear canvas
-            canvas.Clear(Color.Blue);
+            //Draw wallpaper
+            canvas.DrawImage(bitmap, 0, 0, (int)swidth, (int)sheight);
 
             //Display buffered frame
             canvas.Display();
+            bitmap = canvas.GetImage(0, 0, (int)swidth, (int)sheight);
         }
 
         protected override void Run()
         {
             //Define strings
             string text = "Welcome to SigmaOS!";
-            string timeString = Time.TimeString();
+            string text2 = "Press r to restart, s to shutdown";
 
-            //Clear canvas
-            canvas.Clear(Color.Blue);
+            //Draw wallpaper
+            canvas.DrawImage(bitmap, 0, 0);
 
             //Define integers for text centering
             int textX1 = (int)(swidth / 2 - (text.Length * 8) / 2);
-            int textX2 = (int)(swidth / 2 - (timeString.Length * 8) / 2);
+            int textX2 = (int)(swidth / 2 - (text2.Length * 8) / 2);
             int textY1 = (int)(sheight / 2 - 16 / 2) - 20;
             int textY2 = (int)(sheight / 2 - 16 / 2);
 
@@ -102,7 +110,7 @@ namespace SigmaOS
 
             //Draw center text to frame buffer
             canvas.DrawString(text, PCScreenFont.Default, Color.White, textX1, textY1);
-            canvas.DrawString(timeString, PCScreenFont.Default, Color.White, textX2, textY2);
+            canvas.DrawString(text2, PCScreenFont.Default, Color.White, textX2, textY2);
             //Draw system info to frame buffer
             canvas.DrawString("System Information (press i to toggle)", PCScreenFont.Default, Color.White, 20, 20);
             if (sysinfo == true)
@@ -112,8 +120,8 @@ namespace SigmaOS
                 canvas.DrawString("Mouse x: " + mx.ToString() + " y: " + my.ToString(), PCScreenFont.Default, Color.White, 20, 80);
                 canvas.DrawString("Version: 0.1.2", PCScreenFont.Default, Color.White, 20, 100);
             }
-            //Draw bottom right text to frame buffer
-            canvas.DrawString("Press r to restart, s to shutdown", PCScreenFont.Default, Color.White, 735, 750);
+            //Draw taskbar
+            Draw.DrawTaskbar(canvas, swidth, sheight);
             //Draw mouse to frame buffer
             Draw.DrawCursor(canvas, mx, my, sheight);
             //Display buffered frame
