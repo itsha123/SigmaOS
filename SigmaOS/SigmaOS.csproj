@@ -24,11 +24,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resources\moai.bmp" />
       <None Remove="wallpaper.bmp" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="wallpaper.bmp" />
+      <EmbeddedResource Include="Resources\moai.bmp" />
+      <EmbeddedResource Include="Resources\wallpaper.bmp" />
     </ItemGroup>
 
     <ItemGroup>

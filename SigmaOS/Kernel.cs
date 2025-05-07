@@ -26,7 +26,7 @@ namespace SigmaOS
         Boolean sysinfo;
         int HColltimer;
         string URAM;
-        [ManifestResourceStream(ResourceName = "SigmaOS.wallpaper.bmp")]
+        [ManifestResourceStream(ResourceName = "SigmaOS.Resources.wallpaper.bmp")]
         private static byte[] wallpaperData;
         Bitmap bitmap;
         protected override void BeforeRun()
@@ -51,6 +51,9 @@ namespace SigmaOS
             //Define canvas
             mode = new Mode(swidth, sheight, ColorDepth.ColorDepth32);
             canvas = new VBECanvas(mode);
+
+            //Show startup screen
+            Startup.StartupScreen(canvas, swidth, sheight);
 
             //Draw wallpaper
             canvas.DrawImage(bitmap, 0, 0, (int)swidth, (int)sheight);
